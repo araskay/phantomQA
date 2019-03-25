@@ -131,6 +131,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
 
+  p_fracAnomaliesx <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesx)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+  
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank()) 
@@ -145,7 +149,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                              p_medFWHMx + theme(legend.position="none"),
                              p_q1FWHMx + theme(legend.position="none"),
                              p_q3FWHMx + theme(legend.position="none"),
-                             nrow=5),
+                             p_fracAnomaliesx + theme(legend.position="none"),
+                             nrow=6),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
@@ -156,7 +161,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                      p_medFWHMx + theme(legend.position="none"),
                      p_q1FWHMx + theme(legend.position="none"),
                      p_q3FWHMx + theme(legend.position="none"),
-                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
+                     p_fracAnomaliesx + theme(legend.position="none"),
+                     nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
   
   # bar plot of FWHMy
   p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMy)) +
@@ -179,6 +185,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   p_q3FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = q3FWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+
+  p_fracAnomaliesy <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesy)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
   
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -194,7 +204,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                              p_medFWHMy + theme(legend.position="none"),
                              p_q1FWHMy + theme(legend.position="none"),
                              p_q3FWHMy + theme(legend.position="none"),
-                             nrow=5),
+                             p_fracAnomaliesy + theme(legend.position="none"),
+                             nrow=6),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
@@ -205,7 +216,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                      p_medFWHMy + theme(legend.position="none"),
                      p_q1FWHMy + theme(legend.position="none"),
                      p_q3FWHMy + theme(legend.position="none"),
-                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
+                     p_fracAnomaliesy + theme(legend.position="none"),
+                     nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
 
   if (save_png){
     png(filename=paste(plot_title,'_barplots_acf.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
@@ -219,7 +231,9 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                              p_q1FWHMy + theme(legend.position="none"),
                              p_q3FWHMx + theme(legend.position="none"),
                              p_q3FWHMy + theme(legend.position="none"),
-                             ncol = 2, nrow = 5),
+                             p_fracAnomaliesx + theme(legend.position="none"),
+                             p_fracAnomaliesy + theme(legend.position="none"),
+                             ncol = 2, nrow = 6),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
