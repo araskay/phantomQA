@@ -2,18 +2,19 @@
 # library(rmarkdown)
 # render('run_acf_analysis_detrend_fit.R')
 
-acfdir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
+acf_file <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit/acfFWHM.csv"
+working_dir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
 
-setwd(acfdir)
+setwd(working_dir)
 
 spotfire_file <- '../../fBIRN_MR_QA_20180820.csv'
 fbirnQA_file <- './fbirnQA/subjects_fbirnQA.csv'
 
-acf_rem_suffix <- '_3dDetrend.nii.gz'
+acf_rem_suffix <- '_3dDetrend'
 fbirn_rem_suffix <- ''
 
 source("~/Dropbox/code/phantomQA/get_data.R")
-data <- get_data(acfdir = acfdir, fbirnQA_file = fbirnQA_file, spotfire_file = spotfire_file,
+data <- get_data(acfFWHM_file = acf_file, fbirnQA_file = fbirnQA_file, spotfire_file = spotfire_file,
                  acf_rem_suffix = acf_rem_suffix, fbirn_rem_suffix = fbirn_rem_suffix)
 
 plot_title <- 'detrend_fit'

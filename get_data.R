@@ -129,12 +129,15 @@ get_acf_data <- function(acfdir, rem_suffix){
 }
 
 
-get_data <- function(acfdir, fbirnQA_file, spotfire_file, acf_rem_suffix='', fbirn_rem_suffix){
+get_data <- function(acfFWHM_file, fbirnQA_file, spotfire_file, acf_rem_suffix='', fbirn_rem_suffix){
 # this function reads the acf and fbirn data, merges them,
 # adds site and scanner manufacturer data from spotfire,
 # and removes unwanted sessions
 
-  data_acf <- get_acf_data(acfdir = acfdir, rem_suffix = acf_rem_suffix)
+  
+  data_acf <- read.csv(acfFWHM_file)
+  data_acf <- organise_sessionID(data = data_acf, rem_suffix = acf_rem_suffix)
+    
   cat('\nTotal of ', toString(nrow(data_acf)), ' ACF sessions read.\n')
   
   data_fbirn <- get_fbirnQA_data(QAfile = fbirnQA_file, rem_suffix = fbirn_rem_suffix)
@@ -191,8 +194,7 @@ get_data <- function(acfdir, fbirnQA_file, spotfire_file, acf_rem_suffix='', fbi
                    "minFWHMX","minFWHMY","minFWHMZ","maxFWHMX","maxFWHMY","maxFWHMZ",
                    "meanGhost","meanBrightGhost","SNR",
                    "minFWHMx","maxFWHMx","medFWHMx","q1FWHMx","q3FWHMx","meanFWHMx","stdFWHMx",
-                   "minFWHMy","maxFWHMy","medFWHMy","q1FWHMy","q3FWHMy","meanFWHMy","stdFWHMy",
-                   "teq")]
+                   "minFWHMy","maxFWHMy","medFWHMy","q1FWHMy","q3FWHMy","meanFWHMy","stdFWHMy")]
   
   nas <- which(is.na(as.matrix(dataq)), arr.ind = T) # => None
   infs <- which(is.infinite(as.matrix(dataq)), arr.ind = T) # => 154
