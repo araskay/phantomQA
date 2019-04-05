@@ -100,6 +100,9 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   # output:
   #       ggplotly objects
   
+  # set the following to change the title/text size for the y axis
+  y_title_size = 8
+  y_text_size = 8
 
   #extract legend
   #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
@@ -110,35 +113,67 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
     return(legend)}
 
   # bar plot of FWHMx  
-  p_maxFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMx)) +
+  p_maxFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    ylim(0, log10(max(data$maxFWHMx)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
-  p_minFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMx)) +
+  p_minFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
-    
-
-  p_medFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = medFWHMx)) +
+    ylim(0, log10(max(data$maxFWHMx)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
+  p_medFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
-
-  p_q1FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = q1FWHMx)) +
+    ylim(0, log10(max(data$maxFWHMx)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
+  p_q1FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1FWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
-
-  p_q3FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = q3FWHMx)) +
+    ylim(0, log10(max(data$maxFWHMx)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
+  p_q3FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3FWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-
+    ylim(0, log10(max(data$maxFWHMx)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
   p_fracAnomaliesx <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank()) 
-
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
   p_maxFWHMx <- p_maxFWHMx + theme(legend.title=element_blank())
   mylegend <- g_legend(p_maxFWHMx)
 
@@ -165,30 +200,58 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                      nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
   
   # bar plot of FWHMy
-  p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMy)) +
+  p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    ylim(0, log10(max(data$maxFWHMy)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
-  p_minFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMy)) +
+  p_minFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    ylim(0, log10(max(data$maxFWHMy)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
-  
-  p_medFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = medFWHMy)) +
+  p_medFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
+    ylim(0, log10(max(data$maxFWHMy)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
-  p_q1FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = q1FWHMy)) +
+  p_q1FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1FWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
+    ylim(0, log10(max(data$maxFWHMy)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
-  p_q3FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = q3FWHMy)) +
+  p_q3FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3FWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-
+    ylim(0, log10(max(data$maxFWHMy)))+
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
   p_fracAnomaliesy <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
   
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -263,19 +326,19 @@ fbirn_barplot <- function(data, plot_title='', save_png=F){
     return(legend)}
   
   # bar plot of FWHM
-  p_maxFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMX)) +
+  p_maxFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMX))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
-  p_minFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMX)) +
+  p_minFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMX))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
-  p_maxFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMY)) +
+  p_maxFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMY))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
   
-  p_minFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMY)) +
+  p_minFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMY))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) 
 
@@ -332,7 +395,7 @@ fbirn_barplot <- function(data, plot_title='', save_png=F){
   
   # do not plot FWHMZ (since it is irrelevant to 2D acquisitions)
   if (save_png){
-    png(filename=paste(plot_title,'_barplots_fbirn.png',sep = ''), width = 24, height = 24, units = "cm", res = 600)
+    png(filename=paste(plot_title,'_barplots_fbirn.png',sep = ''), width = 24, height = 26, units = "cm", res = 600)
     grid.arrange(arrangeGrob(p_mean + theme(legend.position="none"),
                              p_std + theme(legend.position="none"),
                              p_snr + theme(legend.position="none"),
