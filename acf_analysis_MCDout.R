@@ -50,7 +50,7 @@ remove_outlier_session <- function(data, sites, vars){
   return(list("data_out"=data_out, "out_sessions"=out_sessions))
 }
 
-acf_analysis_MCDout <- function(data, output_dir,
+acf_analysis_MCDout <- function(data,
                                 plot_title='',
                                 show.pca_all = T,
                                 show.pca_acf = T,

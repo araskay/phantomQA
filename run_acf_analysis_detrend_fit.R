@@ -28,7 +28,7 @@ print_physical_anomalies(data = data, sites = sites)
 
 
 source('~/Dropbox/code/phantomQA/acf_analysis_MCDout.R')
-res <- acf_analysis_MCDout(data = data, output_dir = acfdir,
+res <- acf_analysis_MCDout(data = data,
                            plot_title = plot_title,
                            show.pca.varaxes = T,
                            show.pca.timecourse = T,
