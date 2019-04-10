@@ -40,6 +40,7 @@ print(res$out_sessions)
 
 res_detrend <- res
 cat(paste(res_detrend$out_sessions$BYC, collapse = '\n'))
+
 ####################################################
 # compare outlier detection based on acf and fbirn
 ####################################################

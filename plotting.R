@@ -103,6 +103,9 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   # set the following to change the title/text size for the y axis
   y_title_size = 8
   y_text_size = 8
+  
+  x_hline_size = 0.25
+  x_hline_type = "solid"
 
   #extract legend
   #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
@@ -120,7 +123,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_minFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -129,7 +133,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_medFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -138,7 +143,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_q1FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1FWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -147,7 +153,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_q3FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3FWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -156,7 +163,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_fracAnomaliesx <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -164,7 +172,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_meanAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = meanAnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -172,7 +181,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_stdAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = stdAnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -180,7 +190,35 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
+  
+  p_medAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medAnomalyPerVolx))) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
+  
+  p_q1AnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1AnomalyPerVolx))) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
+  
+  p_q3AnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3AnomalyPerVolx))) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -188,7 +226,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_maxFWHMx <- p_maxFWHMx + theme(legend.title=element_blank())
   mylegend <- g_legend(p_maxFWHMx)
@@ -197,11 +236,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
     png(filename=paste(plot_title,'_barplots_FWHMx.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
     grid.arrange(arrangeGrob(p_maxFWHMx + theme(legend.position="none"),
                              p_minFWHMx + theme(legend.position="none"),
-                             p_medFWHMx + theme(legend.position="none"),
-                             p_q1FWHMx + theme(legend.position="none"),
-                             p_q3FWHMx + theme(legend.position="none"),
-                             p_fracAnomaliesx + theme(legend.position="none"),
-                             nrow=6),
+                             p_medAnomalyPerVolx + theme(legend.position="none"),
+                             p_q1AnomalyPerVolx + theme(legend.position="none"),
+                             p_q3AnomalyPerVolx + theme(legend.position="none"),
+                             nrow=5),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
@@ -209,11 +247,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
 
   p_FWHMx <- subplot(p_maxFWHMx + theme(legend.position="none"),
                      p_minFWHMx + theme(legend.position="none"),
-                     p_medFWHMx + theme(legend.position="none"),
-                     p_meanAnomalyPerVolx + theme(legend.position="none"),
-                     p_stdAnomalyPerVolx + theme(legend.position="none"),
-                     p_fracAnomaliesx + theme(legend.position="none"),
-                     nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
+                     p_medAnomalyPerVolx + theme(legend.position="none"),
+                     p_q1AnomalyPerVolx + theme(legend.position="none"),
+                     p_q3AnomalyPerVolx + theme(legend.position="none"),
+                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
   
   # bar plot of FWHMy
   p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMy))) +
@@ -223,7 +260,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_minFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(minFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -232,7 +270,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_medFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -241,7 +280,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_q1FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1FWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -250,7 +290,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_q3FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3FWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -259,7 +300,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_fracAnomaliesy <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -267,7 +309,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_meanAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = meanAnomalyPerVoly)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -275,7 +318,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_stdAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = stdAnomalyPerVoly)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -283,11 +327,35 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
-                            axis.title.x = element_blank())
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
-  p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
+  p_medAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(medAnomalyPerVoly))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank()) 
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
+  
+  p_q1AnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q1AnomalyPerVoly))) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
+  
+  p_q3AnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(q3AnomalyPerVoly))) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())+
+    geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
   p_maxFWHMy <- p_maxFWHMy + theme(legend.title=element_blank())
   mylegend <- g_legend(p_maxFWHMy)
@@ -296,11 +364,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
     png(filename=paste(plot_title,'_barplots_FWHMy.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
     grid.arrange(arrangeGrob(p_maxFWHMy + theme(legend.position="none"),
                              p_minFWHMy + theme(legend.position="none"),
-                             p_medFWHMy + theme(legend.position="none"),
-                             p_q1FWHMy + theme(legend.position="none"),
-                             p_q3FWHMy + theme(legend.position="none"),
-                             p_fracAnomaliesy + theme(legend.position="none"),
-                             nrow=6),
+                             p_medAnomalyPerVoly + theme(legend.position="none"),
+                             p_q1AnomalyPerVoly + theme(legend.position="none"),
+                             p_q3AnomalyPerVolx + theme(legend.position="none"),
+                             nrow=5),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
@@ -308,11 +375,10 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   
   p_FWHMy <- subplot(p_maxFWHMy + theme(legend.position="none"),
                      p_minFWHMy + theme(legend.position="none"),
-                     p_medFWHMy + theme(legend.position="none"),
-                     p_meanAnomalyPerVoly + theme(legend.position="none"),
-                     p_stdAnomalyPerVoly + theme(legend.position="none"),
-                     p_fracAnomaliesy + theme(legend.position="none"),
-                     nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
+                     p_medAnomalyPerVoly + theme(legend.position="none"),
+                     p_q1AnomalyPerVoly + theme(legend.position="none"),
+                     p_q3AnomalyPerVoly + theme(legend.position="none"),
+                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
 
   if (save_png){
     png(filename=paste(plot_title,'_barplots_acf.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
@@ -326,9 +392,7 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                              p_q1FWHMy + theme(legend.position="none"),
                              p_q3FWHMx + theme(legend.position="none"),
                              p_q3FWHMy + theme(legend.position="none"),
-                             p_fracAnomaliesx + theme(legend.position="none"),
-                             p_fracAnomaliesy + theme(legend.position="none"),
-                             ncol = 2, nrow = 6),
+                             ncol = 2, nrow = 5),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
