@@ -166,6 +166,22 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.text.x = element_blank(),
                             axis.title.x = element_blank())
   
+  p_meanAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = meanAnomalyPerVolx)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
+  p_stdAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = stdAnomalyPerVolx)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(),
@@ -194,8 +210,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   p_FWHMx <- subplot(p_maxFWHMx + theme(legend.position="none"),
                      p_minFWHMx + theme(legend.position="none"),
                      p_medFWHMx + theme(legend.position="none"),
-                     p_q1FWHMx + theme(legend.position="none"),
-                     p_q3FWHMx + theme(legend.position="none"),
+                     p_meanAnomalyPerVolx + theme(legend.position="none"),
+                     p_stdAnomalyPerVolx + theme(legend.position="none"),
                      p_fracAnomaliesx + theme(legend.position="none"),
                      nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
   
@@ -253,6 +269,22 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.text.x = element_blank(),
                             axis.title.x = element_blank())
   
+  p_meanAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = meanAnomalyPerVoly)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
+  p_stdAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = stdAnomalyPerVoly)) +
+    geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
+    theme_classic() + theme(axis.ticks = element_blank(),
+                            axis.title.y = element_text(size = y_title_size),
+                            axis.text.y = element_text(size = y_text_size),
+                            axis.text.x = element_blank(),
+                            axis.title.x = element_blank())
+  
   p_teq <- ggplot(data = data, mapping = aes(x = sessionID, y = teq)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank()) 
@@ -277,8 +309,8 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   p_FWHMy <- subplot(p_maxFWHMy + theme(legend.position="none"),
                      p_minFWHMy + theme(legend.position="none"),
                      p_medFWHMy + theme(legend.position="none"),
-                     p_q1FWHMy + theme(legend.position="none"),
-                     p_q3FWHMy + theme(legend.position="none"),
+                     p_meanAnomalyPerVoly + theme(legend.position="none"),
+                     p_stdAnomalyPerVoly + theme(legend.position="none"),
                      p_fracAnomaliesy + theme(legend.position="none"),
                      nrows = 6, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
 
