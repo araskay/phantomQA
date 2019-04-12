@@ -17,6 +17,8 @@ source("~/Dropbox/code/phantomQA/get_data.R")
 data <- get_data(acfFWHM_file = acf_file, fbirnQA_file = fbirnQA_file, spotfire_file = spotfire_file,
                  acf_rem_suffix = acf_rem_suffix, fbirn_rem_suffix = fbirn_rem_suffix)
 
+write.csv(data, file = "data_clean.csv")
+
 plot_title <- 'detrend_fit'
 
 # detect anomalies based on physical quantities of fwhm
