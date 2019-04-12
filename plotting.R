@@ -88,17 +88,21 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
   return(list("biplot"=p,"var_axis_plot"=p2))
 }
 
-#############################################
-# This function creates barplots of the FWHM values.
-# Two barplots are created, one in the x direction, and one in the y direction.
-#############################################
-fwhm_barplot <- function(data, plot_title='', save_png=F){
-  # inputs:
-  #       data: dataframe containing data
-  #       plot_title: title of the plot
-  #       save_png: whether or not to save the plot in a png file ('<plot_title>_pca.png')
-  # output:
-  #       ggplotly objects
+##################################
+# extract legend
+# from https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+##################################
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+########################################
+# this function creates ggplots objects of barplots of the FWHM values.
+# the barplots are not plotted, but returned for other functions to plot them.
+########################################
+get_fwhm_sub_barplots <- function(data){
   
   # set the following to change the title/text size for the y axis
   y_title_size = 8
@@ -106,15 +110,7 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
   
   x_hline_size = 0.25
   x_hline_type = "solid"
-
-  #extract legend
-  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-  g_legend<-function(a.gplot){
-    tmp <- ggplot_gtable(ggplot_build(a.gplot))
-    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-    legend <- tmp$grobs[[leg]]
-    return(legend)}
-
+  
   # bar plot of FWHMx  
   p_maxFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMx))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -229,29 +225,6 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.x = element_blank())+
     geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
-  p_maxFWHMx <- p_maxFWHMx + theme(legend.title=element_blank())
-  mylegend <- g_legend(p_maxFWHMx)
-
-  if (save_png){
-    png(filename=paste(plot_title,'_barplots_FWHMx.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
-    grid.arrange(arrangeGrob(p_maxFWHMx + theme(legend.position="none"),
-                             p_minFWHMx + theme(legend.position="none"),
-                             p_medAnomalyPerVolx + theme(legend.position="none"),
-                             p_q1AnomalyPerVolx + theme(legend.position="none"),
-                             p_q3AnomalyPerVolx + theme(legend.position="none"),
-                             nrow=5),
-                 mylegend,
-                 ncol=2, widths=c(5,1))
-    dev.off()
-  }
-
-  p_FWHMx <- subplot(p_maxFWHMx + theme(legend.position="none"),
-                     p_minFWHMx + theme(legend.position="none"),
-                     p_medAnomalyPerVolx + theme(legend.position="none"),
-                     p_q1AnomalyPerVolx + theme(legend.position="none"),
-                     p_q3AnomalyPerVolx + theme(legend.position="none"),
-                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
-  
   # bar plot of FWHMy
   p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = log10(maxFWHMy))) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -357,41 +330,106 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                             axis.title.x = element_blank())+
     geom_hline(yintercept = 0, color = "red", size = x_hline_size, linetype = x_hline_type)
   
-  p_maxFWHMy <- p_maxFWHMy + theme(legend.title=element_blank())
-  mylegend <- g_legend(p_maxFWHMy)
+  return(list("p_maxFWHMx"=p_maxFWHMx,
+              "p_minFWHMx"=p_minFWHMx,
+              "p_medFWHMx"=p_medFWHMx,
+              "p_q1FWHMx"=p_q1FWHMx,
+              "p_q3FWHMx"=p_q3FWHMx,
+              "p_q3FWHMx"=p_q3FWHMx,
+              "p_fracAnomaliesx"=p_fracAnomaliesx,
+              "p_meanAnomalyPerVolx"=p_meanAnomalyPerVolx,
+              "p_stdAnomalyPerVolx"=p_stdAnomalyPerVolx,
+              "p_medAnomalyPerVolx"=p_medAnomalyPerVolx,
+              "p_q1AnomalyPerVolx"=p_q1AnomalyPerVolx,
+              "p_q3AnomalyPerVolx"=p_q3AnomalyPerVolx,
+              "p_maxFWHMy"=p_maxFWHMy,
+              "p_minFWHMy"=p_minFWHMy,
+              "p_medFWHMy"=p_medFWHMy,
+              "p_q1FWHMy"=p_q1FWHMy,
+              "p_q3FWHMy"=p_q3FWHMy,
+              "p_q3FWHMy"=p_q3FWHMy,
+              "p_fracAnomaliesy"=p_fracAnomaliesy,
+              "p_meanAnomalyPerVoly"=p_meanAnomalyPerVoly,
+              "p_stdAnomalyPerVoly"=p_stdAnomalyPerVoly,
+              "p_medAnomalyPerVoly"=p_medAnomalyPerVoly,
+              "p_q1AnomalyPerVoly"=p_q1AnomalyPerVoly,
+              "p_q3AnomalyPerVoly"=p_q3AnomalyPerVoly))
+}
+
+#############################################
+# This function creates barplots of the FWHM values.
+# Two barplots are created, one in the x direction, and one in the y direction.
+#############################################
+fwhm_barplot <- function(data, plot_title='', save_png=F){
+  # inputs:
+  #       data: dataframe containing data
+  #       plot_title: title of the plot
+  #       save_png: whether or not to save the plot in a png file ('<plot_title>_pca.png')
+  # output:
+  #       ggplotly objects
+  
+  p <- get_fwhm_sub_barplots(data)
+  
+  p$p_maxFWHMx <- p$p_maxFWHMx + theme(legend.title=element_blank())
+  mylegend <- g_legend(p$p_maxFWHMx)
+
+  if (save_png){
+    png(filename=paste(plot_title,'_barplots_FWHMx.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
+    grid.arrange(arrangeGrob(p$p_maxFWHMx + theme(legend.position="none"),
+                             p$p_minFWHMx + theme(legend.position="none"),
+                             p$p_medAnomalyPerVolx + theme(legend.position="none"),
+                             p$p_q1AnomalyPerVolx + theme(legend.position="none"),
+                             p$p_q3AnomalyPerVolx + theme(legend.position="none"),
+                             nrow=5),
+                 mylegend,
+                 ncol=2, widths=c(5,1))
+    dev.off()
+  }
+
+  p_FWHMx <- subplot(p$p_maxFWHMx + theme(legend.position="none"),
+                     p$p_minFWHMx + theme(legend.position="none"),
+                     p$p_medAnomalyPerVolx + theme(legend.position="none"),
+                     p$p_q1AnomalyPerVolx + theme(legend.position="none"),
+                     p$p_q3AnomalyPerVolx + theme(legend.position="none"),
+                     nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMx', sep = " "))
+  
+
+  
+  p$p_maxFWHMy <- p$p_maxFWHMy + theme(legend.title=element_blank())
+  mylegend <- g_legend(p$p_maxFWHMy)
   
   if (save_png){
     png(filename=paste(plot_title,'_barplots_FWHMy.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
-    grid.arrange(arrangeGrob(p_maxFWHMy + theme(legend.position="none"),
-                             p_minFWHMy + theme(legend.position="none"),
-                             p_medAnomalyPerVoly + theme(legend.position="none"),
-                             p_q1AnomalyPerVoly + theme(legend.position="none"),
-                             p_q3AnomalyPerVolx + theme(legend.position="none"),
+    grid.arrange(arrangeGrob(p$p_maxFWHMy + theme(legend.position="none"),
+                             p$p_minFWHMy + theme(legend.position="none"),
+                             p$p_medAnomalyPerVoly + theme(legend.position="none"),
+                             p$p_q1AnomalyPerVoly + theme(legend.position="none"),
+                             p$p_q3AnomalyPerVolx + theme(legend.position="none"),
                              nrow=5),
                  mylegend,
                  ncol=2, widths=c(5,1))
     dev.off()
   }
   
-  p_FWHMy <- subplot(p_maxFWHMy + theme(legend.position="none"),
-                     p_minFWHMy + theme(legend.position="none"),
-                     p_medAnomalyPerVoly + theme(legend.position="none"),
-                     p_q1AnomalyPerVoly + theme(legend.position="none"),
-                     p_q3AnomalyPerVoly + theme(legend.position="none"),
+  p_FWHMy <- subplot(p$p_maxFWHMy + theme(legend.position="none"),
+                     p$p_minFWHMy + theme(legend.position="none"),
+                     p$p_medAnomalyPerVoly + theme(legend.position="none"),
+                     p$p_q1AnomalyPerVoly + theme(legend.position="none"),
+                     p$p_q3AnomalyPerVoly + theme(legend.position="none"),
                      nrows = 5, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'FWHMy', sep = " "))
 
   if (save_png){
     png(filename=paste(plot_title,'_barplots_acf.png',sep = ''), width = 24, height = 18, units = "cm", res = 600)
-    grid.arrange(arrangeGrob(p_maxFWHMx + theme(legend.position="none"),
-                             p_maxFWHMy + theme(legend.position="none"),
-                             p_minFWHMx + theme(legend.position="none"),
-                             p_minFWHMy + theme(legend.position="none"),
-                             p_medFWHMx + theme(legend.position="none"),
-                             p_medFWHMy + theme(legend.position="none"),
-                             p_q1FWHMx + theme(legend.position="none"),
-                             p_q1FWHMy + theme(legend.position="none"),
-                             p_q3FWHMx + theme(legend.position="none"),
-                             p_q3FWHMy + theme(legend.position="none"),
+    grid.arrange(arrangeGrob(p$p_maxFWHMx + theme(legend.position="none"),
+                             p$p_maxFWHMy + theme(legend.position="none"),
+                             p$p_minFWHMx + theme(legend.position="none"),
+                             p$p_minFWHMy + theme(legend.position="none"),
+                             p$p_medFWHMx + theme(legend.position="none"),
+                             p$p_medFWHMy + theme(legend.position="none"),
+                             p$p_q1FWHMx + theme(legend.position="none"),
+                             p$p_q1FWHMy + theme(legend.position="none"),
+                             p$p_q3FWHMx + theme(legend.position="none"),
+                             p$p_q3FWHMy + theme(legend.position="none"),
                              ncol = 2, nrow = 5),
                  mylegend,
                  ncol=2, widths=c(5,1))
