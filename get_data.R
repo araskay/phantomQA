@@ -162,7 +162,7 @@ get_data <- function(acfFWHM_file, fbirnQA_file, spotfire_file, acf_rem_suffix='
   }
   
   # add site and scannermanufacturer from Spotfire data
-  data <- merge(data, data_spotfire[,c("sessionID","site","scannermanufacturer")], by = "sessionID")
+  data <- merge(data, data_spotfire[,c("sessionID","site","scannermanufacturer","scandate")], by = "sessionID")
   # print data that are not in the spotfire file
   if (length(which(! data$sessionID %in% data_spotfire$sessionID)) > 0){
     cat('\nThe following sessions have no Spotfire data:\n')
@@ -204,6 +204,16 @@ get_data <- function(acfFWHM_file, fbirnQA_file, spotfire_file, acf_rem_suffix='
   print(data[rem_ind,]$sessionID)
   cat('Total of', length(rem_ind), 'sessions excluded.\n')
   data <- data[-rem_ind,]
+  
+  cat('\n')
+  for (site in sites){
+    cat(site)
+    cat(' ')
+    cat(sum(data$site==site), 'sessions')
+    cat(' from', paste(min(as.Date(data[data$site == site,'scandate'], "%d-%m-%Y"))))
+    cat(' to', paste(max(as.Date(data[data$site == site,'scandate'], "%d-%m-%Y"))))
+    cat('\n')
+  }
   
   return(data)
 }
