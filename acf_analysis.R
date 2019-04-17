@@ -49,7 +49,7 @@ acf_analysis <- function(data,
   out_sessions <- res$out_sessions
   
   plotdata(data_out,
-           plot_title = paste(plot_title,'out',sep='_'),
+           plot_title = paste(plot_title,'anom',sep='_'),
            show.pca_fbirn = show.pca_fbirn,
            show.pca_all = show.pca_all,
            show.pca_acf = show.pca_acf,

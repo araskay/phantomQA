@@ -17,7 +17,7 @@ data_spikecor <- read.csv(paste(spikecor_dir,'/data_clean.csv',sep = ''))
 ## ACF FWHM bar plots
 source('~/Dropbox/code/phantomQA/plotting.R')
 p_unproc <- get_fwhm_sub_barplots(data_unproc)
-p_spikecor <- get_fwhm_sub_barplots(data_spikecor)
+#p_spikecor <- get_fwhm_sub_barplots(data_spikecor)
 
 p_unproc$p_maxFWHMx <- p_unproc$p_maxFWHMx + theme(legend.title=element_blank())
 mylegend <- g_legend(p_unproc$p_maxFWHMx)

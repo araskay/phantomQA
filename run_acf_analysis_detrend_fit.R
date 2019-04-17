@@ -31,14 +31,14 @@ res <- acf_analysis(data = data,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
-                    pca.var_axes_separate = T,
+                    pca.var_axes_separate = F, # if var_axes_separate is False, will NOT return a plotly PCA plot
                     anom_coef = 10)
 
 nrow(res$data_out)
 print(res$out_sessions)
 
 res_detrend <- res
-cat(paste(res_detrend$out_sessions$BYC, collapse = '\n'))
+cat(paste(res_detrend$out_sessions$UCA, collapse = '\n'))
 
 ####################################################
 # compare outlier detection based on acf and fbirn
