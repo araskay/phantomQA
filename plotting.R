@@ -222,6 +222,9 @@ get_fwhm_sub_barplots <- function(data){
   
   # AnomalyPerVol
   maxAnomalyPerVol <- max(data$q3AnomalyPerVolx,data$q3AnomalyPerVoly)
+  if (maxAnomalyPerVol < 1){
+    maxAnomalyPerVol <- NA
+  }
                           
   p_medAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = medAnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -284,6 +287,10 @@ get_fwhm_sub_barplots <- function(data){
     scale_y_log10(limits = c(1,maxAnomalyPerVol))
   
   # numAnomaly
+  maxNumAnomaly <- max(data$numAnomaly_x, data$numAnomaly_y)
+  if (maxNumAnomaly < 1){
+    maxNumAnomaly <- NA
+  }
   p_numAnomaly_x <- ggplot(data = data, mapping = aes(x = sessionID, y = numAnomaly_x)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     theme_classic() + theme(axis.ticks = element_blank(),
@@ -291,7 +298,7 @@ get_fwhm_sub_barplots <- function(data){
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
                             axis.title.x = element_blank()) +
-    scale_y_log10(limits = c(1,max(data$numAnomaly_x, data$numAnomaly_y)))
+    scale_y_log10(limits = c(1,maxNumAnomaly))
   
   p_numAnomaly_y <- ggplot(data = data, mapping = aes(x = sessionID, y = numAnomaly_y)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
@@ -300,7 +307,7 @@ get_fwhm_sub_barplots <- function(data){
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
                             axis.title.x = element_blank()) +
-    scale_y_log10(limits = c(1,max(data$numAnomaly_x, data$numAnomaly_y)))
+    scale_y_log10(limits = c(1,maxNumAnomaly))
   
   return(list("p_maxFWHMx"=p_maxFWHMx,
               "p_minFWHMx"=p_minFWHMx,
@@ -381,7 +388,7 @@ fwhm_barplot <- function(data, plot_title='', save_png=F){
                          p$p_medAnomalyPerVoly + theme(legend.position="none"),
                          p$p_q1AnomalyPerVolx + theme(legend.position="none"),
                          p$p_q1AnomalyPerVoly + theme(legend.position="none"),
-                         nrows = 4, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'Anomalies_x', sep = " "))
+                         nrows = 4, titleY = T, shareX = T) %>% layout(title = paste(plot_title, 'Anomalies', sep = " "))
   
     
   return(list("p_FWHM"=p_FWHM, "p_anomalies"=p_anomalies))
