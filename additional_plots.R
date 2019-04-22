@@ -59,3 +59,24 @@ grid.arrange(arrangeGrob(arrangeGrob(p_unproc$p_medAnomalyPerVolx + theme(legend
              mylegend,
              ncol=2, widths=c(5,1))
 dev.off()
+
+
+## total number of anomalies bar plots
+source('~/Dropbox/code/phantomQA/plotting.R')
+p_unproc <- get_fwhm_sub_barplots(data_unproc)
+p_spikecor <- get_fwhm_sub_barplots(data_spikecor)
+
+p_unproc$p_maxFWHMx <- p_unproc$p_maxFWHMx + theme(legend.title=element_blank())
+mylegend <- g_legend(p_unproc$p_maxFWHMx)
+png(filename='total_num_anomaly.png', width = 21, height = 8, units = "cm", res = 600)
+grid.arrange(arrangeGrob(arrangeGrob(p_unproc$p_numAnomaly_x + theme(legend.position="none"),
+                                     p_unproc$p_numAnomaly_y + theme(legend.position="none"),
+                                     ncol = 2, nrow = 1, top = '(a) Unprocessed'),
+                         arrangeGrob(p_spikecor$p_numAnomaly_x + theme(legend.position="none"),
+                                     p_spikecor$p_numAnomaly_y + theme(legend.position="none"),
+                                     ncol = 2, nrow = 1, top = '(b) SpikeCor processed'),
+                         ncol = 1, nrow = 2),
+             mylegend,
+             ncol=2, widths=c(5,1))
+dev.off()
+
