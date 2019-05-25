@@ -1,4 +1,4 @@
-physical_anomalies <- function(data,sites,c=5){
+physical_anomalies <- function(data,sites,c=10){
   out_sessions <- list()
   data_out <- NULL
   for (s in sites){
@@ -12,7 +12,7 @@ physical_anomalies <- function(data,sites,c=5){
   return(list("data_out"=data_out, "out_sessions"=out_sessions))
 }
 
-print_physical_anomalies <- function(data,sites,c=5){
+print_physical_anomalies <- function(data,sites,c=10){
   anom <- physical_anomalies(data = data, sites = sites, c = c)
   for (s in sites){
     data_site = subset(data, data$site==s)
