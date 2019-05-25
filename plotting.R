@@ -29,10 +29,10 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
   p <- p + geom_point(aes(colour=data$site,shape=data$scannermanufacturer,label=data$sessionID), alpha=0.7) # label just added for plotly  if
   p <- p + stat_ellipse(mapping = aes(colour=data$site),level = 0.95, alpha=0.7)
   p <- p + theme(legend.title=element_blank(), legend.position = 'right')
-  var_pc1=pca$sdev[1]^2/sum(pca$sdev^2)
-  var_pc2=pca$sdev[2]^2/sum(pca$sdev^2)
-  p <- p + xlab(paste('PC1 (',round(var_pc1*100),'% var. explained)',sep=""))
-  p <- p + ylab(paste('PC2 (',round(var_pc2*100),'% var. explained)',sep=""))
+  frac_var_pc1=pca$sdev[1]^2/sum(pca$sdev^2)
+  frac_var_pc2=pca$sdev[2]^2/sum(pca$sdev^2)
+  p <- p + xlab(paste('PC1 (var. = ',pca$sdev[1]^2,' - ',round(frac_var_pc1*100),'% var. explained)',sep=""))
+  p <- p + ylab(paste('PC2 (var. = ',pca$sdev[2]^2,' - ',round(frac_var_pc2*100),'% var. explained)',sep=""))
   p <- p + ggtitle(plot_title) +
     theme(plot.title = element_text(hjust = 0.5))
   
