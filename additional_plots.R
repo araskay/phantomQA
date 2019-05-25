@@ -77,7 +77,7 @@ grid.arrange(arrangeGrob(arrangeGrob(p_unproc$p_numAnomaly_x + theme(legend.posi
 dev.off()
 
 ## total number of anomalies and (# anomalies)/vol in a single plot
-png(filename='anomalies.png', width = 21, height = 16, units = "cm", res = 600)
+png(filename='anomalies.png', width = 21, height = 15, units = "cm", res = 600)
 grid.arrange(arrangeGrob(arrangeGrob(rbind(ggplotGrob(p_unproc$p_numAnomaly_x + theme(legend.position="none")),
                                            ggplotGrob(p_unproc$p_medAnomalyPerVolx + theme(legend.position="none")),
                                            size = "first"),

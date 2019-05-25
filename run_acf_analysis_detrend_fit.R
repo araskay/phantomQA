@@ -31,7 +31,7 @@ res <- acf_analysis(data = data,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
-                    pca.var_axes_separate = F, # if var_axes_separate is False, will NOT return a plotly PCA plot
+                    pca.var_axes_separate = T, # if var_axes_separate is False, will NOT return a plotly PCA plot
                     anom_coef = 10)
 
 nrow(res$data_out)

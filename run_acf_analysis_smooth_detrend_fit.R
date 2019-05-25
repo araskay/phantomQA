@@ -30,7 +30,7 @@ res_smooth <- acf_analysis(data = data,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
-                    pca.var_axes_separate = F,
+                    pca.var_axes_separate = T,
                     anom_coef = 10)
 
 nrow(res_smooth$data_out)
