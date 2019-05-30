@@ -31,8 +31,8 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
   p <- p + theme(legend.title=element_blank(), legend.position = 'right')
   frac_var_pc1=pca$sdev[1]^2/sum(pca$sdev^2)
   frac_var_pc2=pca$sdev[2]^2/sum(pca$sdev^2)
-  p <- p + xlab(paste('PC1 (var. = ',pca$sdev[1]^2,' - ',round(frac_var_pc1*100),'% var. explained)',sep=""))
-  p <- p + ylab(paste('PC2 (var. = ',pca$sdev[2]^2,' - ',round(frac_var_pc2*100),'% var. explained)',sep=""))
+  p <- p + xlab(paste('PC1 (var. = ',format(pca$sdev[1]^2,digits=3),', ',round(frac_var_pc1*100),'% var. explained)',sep=""))
+  p <- p + ylab(paste('PC2 (var. = ',format(pca$sdev[2]^2,digits=3),', ',round(frac_var_pc2*100),'% var. explained)',sep=""))
   p <- p + ggtitle(plot_title) +
     theme(plot.title = element_text(hjust = 0.5))
   
@@ -113,7 +113,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_maxFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -122,7 +122,7 @@ get_fwhm_sub_barplots <- function(data){
 
   p_minFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -131,7 +131,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_medFWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = medFWHMx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -140,7 +140,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_q1FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = q1FWHMx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -149,7 +149,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_q3FWHMx <- ggplot(data = data, mapping = aes(x = sessionID, y = q3FWHMx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -158,7 +158,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_maxFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -167,7 +167,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_minFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -176,7 +176,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_medFWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = medFWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -185,7 +185,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_q1FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = q1FWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -194,7 +194,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_q3FWHMy <- ggplot(data = data, mapping = aes(x = sessionID, y = q3FWHMy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -204,7 +204,7 @@ get_fwhm_sub_barplots <- function(data){
   # fracAnomalies
   p_fracAnomaliesx <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -213,7 +213,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_fracAnomaliesy <- ggplot(data = data, mapping = aes(x = sessionID, y = fracAnomaliesy)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -229,7 +229,7 @@ get_fwhm_sub_barplots <- function(data){
   p_medAnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = medAnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     ylim(0,max(data$q3AnomalyPerVolx))+
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -239,7 +239,7 @@ get_fwhm_sub_barplots <- function(data){
   p_q1AnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = q1AnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     ylim(0,max(data$q3AnomalyPerVolx))+
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -249,7 +249,7 @@ get_fwhm_sub_barplots <- function(data){
   p_q3AnomalyPerVolx <- ggplot(data = data, mapping = aes(x = sessionID, y = q3AnomalyPerVolx)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
     ylim(0,max(data$q3AnomalyPerVolx))+
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -259,7 +259,7 @@ get_fwhm_sub_barplots <- function(data){
   p_medAnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = medAnomalyPerVoly)) +
     ylim(0,max(data$q3AnomalyPerVoly))+
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -269,7 +269,7 @@ get_fwhm_sub_barplots <- function(data){
   p_q1AnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = q1AnomalyPerVoly)) +
     ylim(0,max(data$q3AnomalyPerVoly))+
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -279,7 +279,7 @@ get_fwhm_sub_barplots <- function(data){
   p_q3AnomalyPerVoly <- ggplot(data = data, mapping = aes(x = sessionID, y = q3AnomalyPerVoly)) +
     ylim(0,max(data$q3AnomalyPerVoly))+
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -293,7 +293,7 @@ get_fwhm_sub_barplots <- function(data){
   }
   p_numAnomaly_x <- ggplot(data = data, mapping = aes(x = sessionID, y = numAnomaly_x)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -302,7 +302,7 @@ get_fwhm_sub_barplots <- function(data){
   
   p_numAnomaly_y <- ggplot(data = data, mapping = aes(x = sessionID, y = numAnomaly_y)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(),
                             axis.title.y = element_text(size = y_title_size),
                             axis.text.y = element_text(size = y_text_size),
                             axis.text.x = element_blank(),
@@ -410,73 +410,73 @@ fbirn_barplot <- function(data, plot_title='', save_png=F){
   
   p_maxFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMX)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(),
                             axis.title.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
   
   p_minFWHMX <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMX)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(),
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(),
                             axis.title.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
   
   p_maxFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMY)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
   
   p_minFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMY)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
 
   p_maxFWHMZ <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMZ)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_minFWHMZ <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMZ)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_mean <- ggplot(data = data, mapping = aes(x = sessionID, y = mean)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_snr <- ggplot(data = data, mapping = aes(x = sessionID, y = SNR)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_sfnr <- ggplot(data = data, mapping = aes(x = sessionID, y = SFNR)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_std <- ggplot(data = data, mapping = aes(x = sessionID, y = std)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_percentfluc <- ggplot(data = data, mapping = aes(x = sessionID, y = percentFluc)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
   
   p_drift <- ggplot(data = data, mapping = aes(x = sessionID, y = drift)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_driftfit <- ggplot(data = data, mapping = aes(x = sessionID, y = driftfit)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_rdc <- ggplot(data = data, mapping = aes(x = sessionID, y = rdc)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_meanGhost <- ggplot(data = data, mapping = aes(x = sessionID, y = meanGhost)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_meanBrightGhost <- ggplot(data = data, mapping = aes(x = sessionID, y = meanBrightGhost)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank())
 
   p_maxFWHMX <- p_maxFWHMX + theme(legend.title=element_blank())
   mylegend <- g_legend(p_maxFWHMX)
