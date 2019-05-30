@@ -1,5 +1,8 @@
 # This script creates additional plots, used in the resulting publications
 
+library(ggplot2)
+library(reshape2)
+
 output_dir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
 
 # the directory containing unprocessed data
@@ -96,4 +99,32 @@ grid.arrange(arrangeGrob(arrangeGrob(rbind(ggplotGrob(p_unproc$p_numAnomaly_x + 
                          nrow = 2),
              mylegend,
              ncol=2, widths=c(5,1))
+dev.off()
+
+## Eigen spectra before and after SpikeCor censoring
+pca_unproc <- prcomp(~mean+SFNR+std+percentFluc+drift+driftfit+rdc+minFWHMX+minFWHMY+maxFWHMX+maxFWHMY+meanGhost+meanBrightGhost+SNR,
+                     data = data_unproc,
+                     center = T,
+                     scale. = T)
+
+pca_spikecor <- prcomp(~mean+SFNR+std+percentFluc+drift+driftfit+rdc+minFWHMX+minFWHMY+maxFWHMX+maxFWHMY+meanGhost+meanBrightGhost+SNR,
+                       data = data_spikecor,
+                       center = T,
+                       scale. = T)
+
+plot(pca_unproc$sdev^2 / sum(pca_unproc$sdev^2), type = "b")
+plot(pca_unproc$sdev^2 / sum(pca_unproc$sdev^2), type = "b")
+
+Unprocessed <- pca_unproc$sdev^2 / sum(pca_unproc$sdev^2)
+SpikeCore <- pca_spikecor$sdev^2 / sum(pca_spikecor$sdev^2)
+PC <- seq_along(pca_unproc$sdev)
+
+eigenspectra <- data.frame(PC, Unprocessed, SpikeCore)
+d <- melt(eigenspectra, id.vars="PC", variable.name = 'Data', value.name = 'Fractional_Variance')
+
+p <- ggplot(data = d, aes(x = PC, y = Fractional_Variance, col = Data)) + geom_point() + geom_line()
+print(p)
+
+png(filename = "eigen_spectra.png", width = 16, height = 10, units = "cm", res = 600)
+print(p)
 dev.off()
