@@ -1,0 +1,42 @@
+# to produce report:
+# library(rmarkdown)
+# render('run_acf_analysis_spikecor_slc_detrend_fit.R')
+
+source("~/Dropbox/code/phantomQA/get_data.R")
+source('~/Dropbox/code/phantomQA/acf_analysis.R')
+
+workingdir <- "~/Dropbox/analysis/phantomQA/acf/spikecor_vol_detrend_fit"
+
+setwd(workingdir)
+
+acf_file <- 'acfFWHM.csv'
+
+spotfire_file <- '../../fBIRN_MR_QA_20180820.csv'
+fbirnQA_file <- 'subjects_spikecor_vol_fbirnQA.csv'
+
+acf_rem_suffix <- '_spikecor_3dDetrend'
+fbirn_rem_suffix <- '_spikecor'
+
+data <- get_data(acfFWHM_file = acf_file, fbirnQA_file = fbirnQA_file, spotfire_file = spotfire_file,
+                 acf_rem_suffix = acf_rem_suffix, fbirn_rem_suffix = fbirn_rem_suffix)
+
+write.csv(data, file = "data_clean.csv")
+
+plot_title <- 'spikecor_vol_detrend_fit'
+
+# detect anomalies based on physical quantities of fwhm
+sites <- c("BYC", "CAM", "MCM", "QNS", "SBH", "TBR", "SMH", "TOH", "TWH", "UBC", "UCA", "UTO", "WEU")
+
+res <- acf_analysis(data = data,
+                    plot_title = plot_title,
+                    show.pca.varaxes = T,
+                    show.pca.timecourse = T,
+                    save_png = T,
+                    pca.var_axes_separate = F,
+                    anom_coef = 10)
+
+nrow(res$data_out)
+print(res$out_sessions)
+
+cat(paste(res$out_sessions$BYC, collapse = '\n'))
+length(res$out_sessions$BYC)
