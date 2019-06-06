@@ -1,10 +1,17 @@
 
+<h1>Resting-state fMRI phantom quality assurance (QA)</h1>
+In any longitudinal multi-site study it is crucial to ensure comparability of data collected at different sites and over different sessions. In this study we regularly scan a phantom at thirteen sites across canada to investigate between- and within-site MRI scanner instabilities. The phantom is a spherical plastic phantom filled with doped agar gel (the fBIRN phantom), which is scanned approximately monthly at each site using the resting-state fMRI (rs-fMRI) sequence of the Canadian Dementia Imaging Protocol. The goals of this are (1) to identify scanner variations within- and between-sites, (2) to identify sources of variability, (3) to identify preprocessing approaches to minimize the impact of variations, and (4) to translate findings on phantom data to human studies. This study is defined under the Ontario Neurodegeneration Research Initiative (ONDRI) and the Canadian Biomarker Integration Network in Depression (CAN-BIND).
 
+The following interactive dashboards show the variance within different sites, between different sites, and between different manufacturers.
 
-<h1>Principal Component Analysis</h1>
-<p><a href="https://kayvanrad.github.io/phantomQA/pca.html">PCA</a></p>
+<h2>(a) All scan data</h2>
 <div>
     <a href="https://plot.ly/~imaginaerum/3/?share_key=PjBjLm5R8uvcm7tkWnlB4Z" target="_blank" title="phantomQA-detrend_fit_all_data_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/3.png?share_key=PjBjLm5R8uvcm7tkWnlB4Z" alt="phantomQA-detrend_fit_all_data_pca_fbirn" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="imaginaerum:3" sharekey-plotly="PjBjLm5R8uvcm7tkWnlB4Z" src="https://plot.ly/embed.js" async></script>
 </div>
 
+<h2>(b) Anomalous scan session excluded</h2>
+<div>
+    <a href="https://plot.ly/~imaginaerum/5/?share_key=b7x4ytU8vTZbOnabTyvO70" target="_blank" title="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/5.png?share_key=b7x4ytU8vTZbOnabTyvO70" alt="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="imaginaerum:5" sharekey-plotly="b7x4ytU8vTZbOnabTyvO70" src="https://plot.ly/embed.js" async></script>
+</div>
