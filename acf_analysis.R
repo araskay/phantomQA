@@ -11,6 +11,7 @@ acf_analysis <- function(data,
                          show.pca.varaxes = F,
                          show.pca.timecourse = T,
                          pca.var_axes_separate = F,
+                         pca.return_plotly = F,
                          save_png = F,
                          anom_coef = 10){
   # output:
@@ -31,6 +32,7 @@ acf_analysis <- function(data,
                         show.pca.varaxes = show.pca.varaxes,
                         show.pca.timecourse = show.pca.timecourse,
                         pca.var_axes_separate = pca.var_axes_separate,
+                        pca.return_plotly = pca.return_plotly,
                         save_png = save_png)
 
   sites <- c("BYC", "CAM", "MCM", "QNS", "SBH", "TBR", "SMH", "TOH", "TWH", "UBC", "UCA", "UTO", "WEU")
@@ -56,6 +58,7 @@ acf_analysis <- function(data,
                          show.pca.varaxes = show.pca.varaxes,
                          show.pca.timecourse = show.pca.timecourse,
                          pca.var_axes_separate = pca.var_axes_separate,
+                         pca.return_plotly = pca.return_plotly,
                          save_png = save_png)
 
   plots <- list("all_data"=plots_all, "anomalies_excluded"=plots_anom)

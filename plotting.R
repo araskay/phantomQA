@@ -7,7 +7,7 @@ library(gridExtra)
 ########################################
 ## This function creates PCA biplots
 ########################################
-pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_png=F, var_axes_separate=F){
+pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_png=F, var_axes_separate=F, return_plotly=F){
   # inputs:
   #       data: dataframe containing data
   #       pca: pca object- output of prcomp
@@ -44,9 +44,14 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
   if (var_axes){
     if (!var_axes_separate){
       eigvecs = pca$rotation * 20
-      p <- p + geom_segment(data= data.frame(eigvecs), mapping = aes(x=0,y=0,xend=PC1,yend=PC2), colour = 'red',arrow = arrow(type = 'closed',length = unit(x = 0.2,units = 'cm')), alpha=1)+
-        #geom_label(data= data.frame(eigvecs), mapping = aes(x=PC1,y=PC2),label=rownames(pca$rotation))
-        geom_label_repel(data= data.frame(eigvecs), mapping = aes(x=PC1,y=PC2),label=rownames(pca$rotation), alpha = 0.7)
+      p <- p + geom_segment(data= data.frame(eigvecs), mapping = aes(x=0,y=0,xend=PC1,yend=PC2), colour = 'red',arrow = arrow(type = 'closed',length = unit(x = 0.2,units = 'cm')), alpha=1)
+        if (return_plotly){
+          p <- p + geom_text(data= data.frame(eigvecs), mapping = aes(x=PC1,y=PC2),label=rownames(pca$rotation))
+          # plotly currently does not support geom_label
+        } else{
+          p <- p + geom_label_repel(data= data.frame(eigvecs), mapping = aes(x=PC1,y=PC2),label=rownames(pca$rotation), alpha = 0.7)
+        }
+        
     } else{
       eigvecs = pca$rotation * 8
       p2 <- ggplot(data= data.frame(pca$x), mapping = aes(x=PC1,y=PC2))
@@ -82,7 +87,7 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
     }
   }
   
-  if (!var_axes | var_axes_separate){ # var_axes does not work with ggplotly
+  if (return_plotly){
     p <- ggplotly(p)
   } 
   return(list("biplot"=p,"var_axis_plot"=p2))
@@ -562,6 +567,7 @@ plotdata <- function(data,
                      show.pca.varaxes = F,
                      show.pca.timecourse = T,
                      pca.var_axes_separate=F,
+                     pca.return_plotly=F,
                      plot_title='',
                      save_png=F){
   
@@ -602,7 +608,8 @@ plotdata <- function(data,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'fbirn+acf',sep='_'),
                     save_png = save_png,
-                    var_axes_separate = pca.var_axes_separate)
+                    var_axes_separate = pca.var_axes_separate,
+                    return_plotly = pca.return_plotly)
     print(p.pca_all)
   }
   if (show.pca_fbirn){
@@ -614,7 +621,8 @@ plotdata <- function(data,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'fbirn',sep='_'),
                     save_png = save_png,
-                    var_axes_separate = pca.var_axes_separate)
+                    var_axes_separate = pca.var_axes_separate,
+                    return_plotly = pca.return_plotly)
     print(p.pca_fbirn)
   }
   if (show.pca_acf){
@@ -627,7 +635,8 @@ plotdata <- function(data,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'acf',sep='_'),
                     save_png = save_png,
-                    var_axes_separate = pca.var_axes_separate)
+                    var_axes_separate = pca.var_axes_separate,
+                    return_plotly = pca.return_plotly)
     print(p.pca_acf)
   }
   

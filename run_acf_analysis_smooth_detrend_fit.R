@@ -30,9 +30,13 @@ res_smooth <- acf_analysis(data = data,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
-                    pca.var_axes_separate = T,
+                    pca.var_axes_separate = F,
+                    pca.return_plotly = T, # turn off for better labeling of variable axes using ggrepel
                     anom_coef = 10)
 
 nrow(res_smooth$data_out)
 cat(paste(res_smooth$out_sessions$BYC, collapse = '\n'))
+
+# publish graphs to plotly
+api_create(res_smooth$plots$all_data$pca_fbirn$biplot, filename = "phantomQA-smooth_detrend_fit_all_data_pca_fbirn")
 

@@ -27,17 +27,20 @@ plot_title <- 'spikecor_slc_detrend_fit'
 # detect anomalies based on physical quantities of fwhm
 sites <- c("BYC", "CAM", "MCM", "QNS", "SBH", "TBR", "SMH", "TOH", "TWH", "UBC", "UCA", "UTO", "WEU")
 
-res <- acf_analysis(data = data,
+res_spikecor_slc_detrend <- acf_analysis(data = data,
                     plot_title = plot_title,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
                     pca.var_axes_separate = F,
+                    pca.return_plotly = T, # turn off for better labeling of variable axes using ggrepel
                     anom_coef = 10)
 
-nrow(res$data_out)
-print(res$out_sessions)
+nrow(res_spikecor_slc_detrend$data_out)
+print(res_spikecor_slc_detrend$out_sessions)
 
-res_spikecor_slc_detrend <- res
 
 cat(paste(res_spikecor_slc_detrend$out_sessions$BYC, collapse = '\n'))
+
+# publish graphs to plotly
+api_create(res_spikecor_slc_detrend$plots$all_data$pca_fbirn$biplot, filename = "phantomQA-spikecor_slc_detrend_fit_all_data_pca_fbirn")

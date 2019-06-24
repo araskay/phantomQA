@@ -31,11 +31,13 @@ res <- acf_analysis(data = data,
                     show.pca.varaxes = T,
                     show.pca.timecourse = T,
                     save_png = T,
-                    pca.var_axes_separate = T, # if var_axes_separate is False, will NOT return a plotly PCA plot
+                    pca.var_axes_separate = F,
+                    pca.return_plotly = T, # turn off for better labeling of variable axes using ggrepel
                     anom_coef = 10)
 
-api_create(res$plots$all_data$pca_fbirn[[1]], filename = "phantomQA-detrend_fit_all_data_pca_fbirn")
-api_create(res$plots$anomalies_excluded$pca_fbirn[[1]], filename = "phantomQA-detrend_fit_anomalies_excluded_pca_fbirn")
+# publish graphs to plotly
+api_create(res$plots$all_data$pca_fbirn$biplot, filename = "phantomQA-detrend_fit_all_data_pca_fbirn")
+api_create(res$plots$anomalies_excluded$pca_fbirn$biplot, filename = "phantomQA-detrend_fit_anomalies_excluded_pca_fbirn")
 api_create(ggplotly(res$plots$all_data$fwhm_barplot$p_FWHM), filename = "phantomQA-detrend_fit_all_data_acf_fwhm_barplot")
 api_create(res$plots$all_data$fbirn_barplot, filename = "phantomQA-detrend_fit_all_data_fbirn_barplot")
 
