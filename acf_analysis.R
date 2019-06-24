@@ -23,15 +23,15 @@ acf_analysis <- function(data,
   source('~/Dropbox/code/phantomQA/acf_analysis_physical_anomalies.R')
   
   
-  plotdata(data,
-           plot_title = plot_title,
-           show.pca_fbirn = show.pca_fbirn,
-           show.pca_all = show.pca_all,
-           show.pca_acf = show.pca_acf,
-           show.pca.varaxes = show.pca.varaxes,
-           show.pca.timecourse = show.pca.timecourse,
-           pca.var_axes_separate = pca.var_axes_separate,
-           save_png = save_png)
+  plots_all <- plotdata(data,
+                        plot_title = plot_title,
+                        show.pca_fbirn = show.pca_fbirn,
+                        show.pca_all = show.pca_all,
+                        show.pca_acf = show.pca_acf,
+                        show.pca.varaxes = show.pca.varaxes,
+                        show.pca.timecourse = show.pca.timecourse,
+                        pca.var_axes_separate = pca.var_axes_separate,
+                        save_png = save_png)
 
   sites <- c("BYC", "CAM", "MCM", "QNS", "SBH", "TBR", "SMH", "TOH", "TWH", "UBC", "UCA", "UTO", "WEU")
   
@@ -48,16 +48,17 @@ acf_analysis <- function(data,
   data_out <- res$data_out
   out_sessions <- res$out_sessions
   
-  plotdata(data_out,
-           plot_title = paste(plot_title,'anom',sep='_'),
-           show.pca_fbirn = show.pca_fbirn,
-           show.pca_all = show.pca_all,
-           show.pca_acf = show.pca_acf,
-           show.pca.varaxes = show.pca.varaxes,
-           show.pca.timecourse = show.pca.timecourse,
-           pca.var_axes_separate = pca.var_axes_separate,
-           save_png = save_png)
+  plots_anom <- plotdata(data_out,
+                         plot_title = paste(plot_title,'anom',sep='_'),
+                         show.pca_fbirn = show.pca_fbirn,
+                         show.pca_all = show.pca_all,
+                         show.pca_acf = show.pca_acf,
+                         show.pca.varaxes = show.pca.varaxes,
+                         show.pca.timecourse = show.pca.timecourse,
+                         pca.var_axes_separate = pca.var_axes_separate,
+                         save_png = save_png)
 
-  return(list("data_out"=data_out, "out_sessions"=out_sessions))  
+  plots <- list("all_data"=plots_all, "anomalies_excluded"=plots_anom)
+  return(list("data_out"=data_out, "out_sessions"=out_sessions, "plots"=plots))  
 }
 

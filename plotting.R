@@ -564,13 +564,21 @@ plotdata <- function(data,
                      pca.var_axes_separate=F,
                      plot_title='',
                      save_png=F){
+  
+  p.fwhm_barplot <- NULL
+  p.fbirn_barplot <- NULL
+  p.corr_plot <- NULL
+  pca_all <- NULL
+  pca_fbirn <- NULL
+  pca_acf <- NULL
+  
   if (show.fwhm_barplot){
-    p <- fwhm_barplot(data,plot_title = plot_title, save_png = save_png)
-    print(p)
+    p.fwhm_barplot <- fwhm_barplot(data,plot_title = plot_title, save_png = save_png)
+    print(p.fwhm_barplot)
   }
   if (show.fbirn_barplot){
-    p <- fbirn_barplot(data,plot_title = plot_title, save_png = save_png)
-    print(p)
+    p.fbirn_barplot <- fbirn_barplot(data,plot_title = plot_title, save_png = save_png)
+    print(p.fbirn_barplot)
   }  
   if (show.corr_plot){
     ### Correlation Analysis- including 16 fBIRN parameters
@@ -580,8 +588,8 @@ plotdata <- function(data,
                        "meanGhost","meanBrightGhost",
                        "minFWHMx","maxFWHMx","medFWHMx","q1FWHMx","q3FWHMx","meanFWHMx","stdFWHMx",
                        "minFWHMy","maxFWHMy","medFWHMy","q1FWHMy","q3FWHMy","meanFWHMy","stdFWHMy")]
-    p <- correlation_plot(qaparams,plot_title = plot_title, save_png = save_png)
-    print(p)
+    p.corr_plot <- correlation_plot(qaparams,plot_title = plot_title, save_png = save_png)
+    print(p.corr_plot)
   }
   if (show.pca_all){
     pca <- prcomp(~minFWHMx+maxFWHMx+medFWHMx+q1FWHMx+q3FWHMx+
@@ -590,24 +598,24 @@ plotdata <- function(data,
                   data = data,
                   center = T,
                   scale. = T)
-    p <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
+    p.pca_all <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'fbirn+acf',sep='_'),
                     save_png = save_png,
                     var_axes_separate = pca.var_axes_separate)
-    print(p)
+    print(p.pca_all)
   }
   if (show.pca_fbirn){
     pca <- prcomp(~mean+SFNR+std+percentFluc+drift+driftfit+rdc+minFWHMX+minFWHMY+maxFWHMX+maxFWHMY+meanGhost+meanBrightGhost+SNR,
                   data = data,
                   center = T,
                   scale. = T)
-    p <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
+    p.pca_fbirn <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'fbirn',sep='_'),
                     save_png = save_png,
                     var_axes_separate = pca.var_axes_separate)
-    print(p)
+    print(p.pca_fbirn)
   }
   if (show.pca_acf){
     pca <- prcomp(~minFWHMx+maxFWHMx+medFWHMx+q1FWHMx+q3FWHMx+
@@ -615,13 +623,19 @@ plotdata <- function(data,
                   data = data,
                   center = T,
                   scale. = T)
-    p <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
+    p.pca_acf <- pca_biplot(data,pca,var_axes = show.pca.varaxes,
                     time_course = show.pca.timecourse,
                     plot_title = paste(plot_title,'acf',sep='_'),
                     save_png = save_png,
                     var_axes_separate = pca.var_axes_separate)
-    print(p)
+    print(p.pca_acf)
   }
+  
+  return(list("fwhm_barplot"=p.fwhm_barplot,
+              "fbirn_barplot"=p.fbirn_barplot,
+              "pca_all"=p.pca_all,
+              "pca_fbirn"=p.pca_fbirn,
+              "pca_acf"=p.pca_acf))
   
 }
   

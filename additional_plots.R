@@ -2,6 +2,7 @@
 
 library(ggplot2)
 library(reshape2)
+library(plotly)
 
 output_dir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
 
@@ -94,7 +95,7 @@ grid.arrange(arrangeGrob(arrangeGrob(rbind(ggplotGrob(p_unproc$p_numAnomaly_x + 
                                      rbind(ggplotGrob(p_spikecor$p_numAnomaly_y + theme(legend.position="none")),
                                            ggplotGrob(p_spikecor$p_medAnomalyPerVoly + theme(legend.position="none")),
                                            size = "first"),
-                                     ncol=2, top = '(a) SpikeCor processed'),
+                                     ncol=2, top = '(b) SpikeCor processed'),
                          
                          nrow = 2),
              mylegend,
@@ -128,3 +129,7 @@ print(p)
 png(filename = "eigen_spectra.png", width = 16, height = 10, units = "cm", res = 600)
 print(p)
 dev.off()
+
+# publish to plotly
+p <- ggplotly(p)
+api_create(p, filename = "phantomQA-eigenspectra")
