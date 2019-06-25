@@ -1,16 +1,52 @@
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
     <style>
         img {
-          width: 100%;
-          height: auto;
+            width: 100%;
+            height: auto;
+        }
+        div {
+            max-width: 960px;
+            margin: auto;
+        }
+        .nav {
+            list-style: none;
+            margin:0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+        }
+        .nav li {            
+            display: inline;
+        }
+        .nav a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .nav a:hover {background-color: #111;}
+        @media screen and (max-width: 960px) {
+            .nav a {display: block;}
         }
     </style>
 </head>
 
-<body>
+<body style="font-family:Arial, Helvetica, sans-serif; font-size:125%;">
 
+<ul class="nav">
+    <li><a href="#fbirn_qa_barplots">fBIRN QA bar plots</a></li>
+    <li><a href="#fbirn_qa_pca">fBIRN QA PCA</a></li>
+    <li><a href="#spatially_smoothed_pca">Spatial smoothing</a></li>
+    <li><a href="#anomalies_removed_pca">Anomaly detection</a></li>
+</ul>
+
+
+<div>
 <h1>Resting-state fMRI phantom quality assurance (QA)</h1>
 <p>Quality assurance is crucial in longitudinal and/or multi-site studies, which involve collection of data from a group of subjects over time and/or at different locations. It is crucial to regularly monitor the performance of the scanners over time and at different locations to detect and control for intrinsic differences (e.g., due to manufacturers) and changes in the scanner performance (e.g., due to gradual component aging, software and/or hardware upgrades, etc.) If these differences and changes are not controlled, they can add unexplained variance to the data.</p>
 
@@ -18,20 +54,25 @@
 
 <h2>Characterization of variance</h2>
 <h3>fBIRN QA parameters</h3>
-<p>The fBIRN QA pipeline (https://www.nitrc.org/projects/bxh_xcede_tools/) was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following figure shows fourteen QA parameters are plotted for all sites:</p>
+<p>The <a href="https://www.nitrc.org/projects/bxh_xcede_tools/" title="fBIRN QA pipelie on NITRC">fBIRN QA pipeline</a> was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following figure shows fourteen QA parameters are plotted for all sites:</p>
+
+<a id="fbirn_qa_barplots">
 <div>
 <img src="images/detrend_fit_barplots_fbirn.png" alt="Bar plots of fBIRN QA parameters">
 <figcaption>Figure 1 - fBirn QA values for the 13 participating site. Each bar corresponds to an imaging session. Sessions are ordered chronologically for each site. The sites are labeled with a three-letter code as defined in Table 1. Note that FWHM values are plotted in mm on log scales.</figcaption>
 </div>
+</a>
 
 <h3>Principal component analysis</h3>
 <p>Principal component analysis (PCA) can reveal the variance in the QA variables within one imaging site as well as the variance between different sites. The following interactive dashboard shows the PCA of the fBIRN QA variables.</p>
-    
+
+<a id="fbirn_qa_pca">
 <div>
-    <a href="https://plot.ly/~imaginaerum/3/?share_key=PjBjLm5R8uvcm7tkWnlB4Z" target="_blank" title="phantomQA-detrend_fit_all_data_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/3.png?share_key=PjBjLm5R8uvcm7tkWnlB4Z" alt="phantomQA-detrend_fit_all_data_pca_fbirn" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="imaginaerum:3" sharekey-plotly="PjBjLm5R8uvcm7tkWnlB4Z" src="https://plot.ly/embed.js" async></script>
-    <figcaption>Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. A few examples of prominent outlying sessions within one imaging site are highlighted. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+<a href="https://plot.ly/~imaginaerum/3/?share_key=PjBjLm5R8uvcm7tkWnlB4Z" target="_blank" title="phantomQA-detrend_fit_all_data_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/3.png?share_key=PjBjLm5R8uvcm7tkWnlB4Z" alt="phantomQA-detrend_fit_all_data_pca_fbirn" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+<script data-plotly="imaginaerum:3" sharekey-plotly="PjBjLm5R8uvcm7tkWnlB4Z" src="https://plot.ly/embed.js" async></script>
+<figcaption>Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. A few examples of prominent outlying sessions within one imaging site are highlighted. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
 </div>
+</a>
 
 <h3>Between-manufacturer variance</h3>
 <p>We noticed a substantial between-manufacturer variance. For instance, GE scanners are mostly in the first quadrant (top right quadrant), while Siemens scanners are located in the third (bottom left) and Philips scanners in the fourth (bottom right) quadrants on the PCA plane. There is more over substantial differences in the variance between different manufacturers with Siemens having the smallest within manufacturer variance and Philips having the largest within manufacturer variance.</p>
@@ -52,25 +93,28 @@
 <h3>Spatial smoothing reduces between-manufacturer variance</h3>
 If between manufacturer variance is driven by differences in FWHM, smoothing the images to the greatest mean FWHM of all sites should reduce the variance. Figure 3 shows the PCA of the fBIRN QA measures after spatial smoothing to 7 mm by AFNI’s 3dBlurToFWHM. Our data show that smoothing indeed reduces the between manufacturer variance as shown by the overlapping 95% normal ellipses corresponding to Siemens and GE and Philips scanners in Figure 3 (compare with Figure 2 where Siemens scanners are distinctly separated form GE and Philips scanners). Smoothing brings the minimum FWHM up to a common value for all the scanners. However, smoothing does not appear to remove and/or alleviate the outlying sessions, indicating that the outliers are potentially driven by factors other than differences in reconstruction resolution.
 
+<a id="spatially_smoothed_pca">
 <div>
-    <a href="https://plot.ly/~imaginaerum/9/?share_key=hLtMWA9udnYm4OE0h6dL9S" target="_blank" title="phantomQA-smooth_detrend_fit_all_data_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/9.png?share_key=hLtMWA9udnYm4OE0h6dL9S" alt="phantomQA-smooth_detrend_fit_all_data_pca_fbirn" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="imaginaerum:9" sharekey-plotly="hLtMWA9udnYm4OE0h6dL9S" src="https://plot.ly/embed.js" async></script>
-
-    <figcaption>Figure 3 - Principal component analysis (PCA) of the fBIRN QA variables after spatial smoothing. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+<a href="https://plot.ly/~imaginaerum/9/?share_key=hLtMWA9udnYm4OE0h6dL9S" target="_blank" title="phantomQA-smooth_detrend_fit_all_data_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/9.png?share_key=hLtMWA9udnYm4OE0h6dL9S" alt="phantomQA-smooth_detrend_fit_all_data_pca_fbirn" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+<script data-plotly="imaginaerum:9" sharekey-plotly="hLtMWA9udnYm4OE0h6dL9S" src="https://plot.ly/embed.js" async></script>
+<figcaption>Figure 3 - Principal component analysis (PCA) of the fBIRN QA variables after spatial smoothing. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
 </div>
-    
+</a>
 
 <h3>Anomaly detection using autocorrelation function (ACF) analysis</h3>
 Since FWHM appears to be a main factor driving the between-site variance as well as the anomalies, we looked at an independent slice-wise measure of resolution using autocorrelation function (ACF) analysis. This was motivated by two factors: (1) to provide an independent measure of FWHM, and (2) to calculate slice-wise measures of FWHM, as our primary investigation of the anomalous images hinted at possible slice effects. 
 
 The slice ACF measurements of FWHM reveal slice instabilities within the anomalous scan sessions, which can result in unexplained variance in the data.  These instabilities can be detected using slice ACF measurements of FWHM and can, under certain circumstances, be controlled by preprocessing. When preprocessing is not effective in controlling these instabilities, the affected scan sessions can be detected using slice ACF FWHM values and excluded in subsequent analysis.
 
+<a id="anomalies_removed_pca">
 <div>
-    <a href="https://plot.ly/~imaginaerum/5/?share_key=b7x4ytU8vTZbOnabTyvO70" target="_blank" title="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/5.png?share_key=b7x4ytU8vTZbOnabTyvO70" alt="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="imaginaerum:5" sharekey-plotly="b7x4ytU8vTZbOnabTyvO70" src="https://plot.ly/embed.js" async></script>
-    <figcaption>Figure 4 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+<a href="https://plot.ly/~imaginaerum/5/?share_key=b7x4ytU8vTZbOnabTyvO70" target="_blank" title="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" style="display: block; text-align: center;"><img src="https://plot.ly/~imaginaerum/5.png?share_key=b7x4ytU8vTZbOnabTyvO70" alt="phantomQA-detrend_fit_anomalies_excluded_pca_fbirn" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+<script data-plotly="imaginaerum:5" sharekey-plotly="b7x4ytU8vTZbOnabTyvO70" src="https://plot.ly/embed.js" async></script>
+<figcaption>Figure 4 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
 </div>
+</a>
 
+</div>
 </body>
 
 </html>
