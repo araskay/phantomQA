@@ -10,19 +10,10 @@ This repository includes various tools for reading the data from CSV files, corr
 - *acf_analysis_physical_anomalies.R* includes functions for anomaly detection and removal.
 *run_acf_analysis_detrend_fit.R* is a sample script that calls various functions to read the data from CSV files, perform correlation analysis, PCA, and outlier detection on the data, and plot the data at each stage. The reader is invited to start with this file and work their way into the aforementioned libraries.
 
-The following figures show just a few examples of the dashboards/plots generated using this repository:
-
-Bar plots of ACF FWHM measures:
-![detrend_fit_out_barplots_acf.png](https://github.com/kayvanrad/phantomQA/blob/master/images/detrend_fit_out_barplots_acf.png)
-
-Correlation matrix of the fBIRN QA and ACF variables:
-![detrend_fit_out_corr_plot.png](https://github.com/kayvanrad/phantomQA/blob/master/images/detrend_fit_out_corr_plot.png)
-
-PCA with time courses - i.e., scan sessions within each site connected in temporal order of acquisition
-![detrend_fit_out_fbirn_pca_timecourse.png](https://github.com/kayvanrad/phantomQA/blob/master/images/detrend_fit_out_fbirn_pca_timecourse.png)
-
 ## Installation
 Clone or download this repository to a directory of your choice. Make sure all the prerequisites are installed.
 
 ## Author
 [Aras Kayvanrad](https://www.linkedin.com/in/kayvanrad/)
+
+**Related repos:** [fBIRNQA](https://github.com/kayvanrad/fbirnQA), [acf](https://github.com/kayvanrad/acf)
