@@ -16,4 +16,4 @@ Clone or download this repository to a directory of your choice. Make sure all t
 ## Author
 [Aras Kayvanrad](https://www.linkedin.com/in/kayvanrad/)
 
-**Related repos:** [fBIRNQA](https://github.com/kayvanrad/fbirnQA), [acf](https://github.com/kayvanrad/acf)
+**Related repos:** [fbirnQA](https://github.com/kayvanrad/fbirnQA), [acf](https://github.com/kayvanrad/acf)
