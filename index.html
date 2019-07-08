@@ -26,6 +26,7 @@
             width: 100%;
             position: sticky;
         }
+
         .nav a {
             display: inline-block;
             color: white;
@@ -33,6 +34,7 @@
             padding: 14px 16px;
             text-decoration: none;
         }
+
         .nav a:hover {
             background-color: #111;
         }
@@ -42,21 +44,15 @@
         }
 
         @media screen and (max-width: 960px) {
-            .nav a {display: none;}
+            .nav a:not(:first-child) {display: none;}
             .nav a.icon {
                 float: right;
                 display: block;
-            }
-        }
-
-        @media screen and (max-width: 960px) {
-            .nav.responsive {position: sticky;}
-            .nav.responsive .icon {
                 position: absolute;
                 right: 0;
                 top: 0;
             }
-            .nav.responsive a {
+            .nav.responsive a:not(:first-child) {
                 float: none;
                 display: block;
                 text-align: left;
@@ -69,18 +65,15 @@
 
 <body style="font-family:Arial, Helvetica, sans-serif;">
 
-<ul class="nav">
-
-</ul>  
-
 <ul class="nav" id="topNav">
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-    </a>    
+    <a href="https://kayvanrad.github.io/">Home</a>  
     <a href="#fbirn_qa_barplots">fBIRN QA bar plots</a>
     <a href="#fbirn_qa_pca">fBIRN QA PCA</a>
     <a href="#spatially_smoothed_pca">Spatial smoothing</a>
     <a href="#anomalies_removed_pca">Anomaly detection</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
 </ul>
 
 
