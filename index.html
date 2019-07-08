@@ -12,6 +12,10 @@
             max-width: 960px;
             margin: auto;
         }
+        .body-text {
+            font-size: 125%;
+            line-height: 1.25;
+        }
         .nav {
             margin:0;
             padding: 0;
@@ -84,18 +88,18 @@
     <h1 style="text-align:center">Resting-state fMRI quality assurance</h1>
     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTLO7xNfRp_6QQKcnBA2pj3tf72cBv0UWwvXEo3KONsTyU9P4YjQ1Ol46w8DrufsAeZpRnGepgtRdcI/pub?w=631&h=511"
     alt="QA image">
-    <p><b>This page contains interactive figures identified by <span style="background-color: #008000; color: #ffffff;">Interactive</span>. The interative figures allow zooming, data subsetting, and point lookup.</b></p>
+    <p class="body-text"><b>This page contains interactive figures identified by <span style="background-color: #008000; color: #ffffff;">Interactive</span>. The interative figures allow zooming, data subsetting, and point lookup.</b></p>
 </div>
 
 <div style="background-color: F7F7F7; padding: 5px">
-    <div class="text_centre">
+    <div class="text_centre body-text">
         <p>Quality assurance is crucial in longitudinal and/or multi-site studies, which involve collection of data from a group of subjects over time and/or at different locations. It is crucial to regularly monitor the performance of the scanners over time and at different locations to detect and control for intrinsic differences (e.g., due to manufacturers) and changes in the scanner performance (e.g., due to gradual component aging, software and/or hardware upgrades, etc.) If these differences and changes are not controlled, they can add unexplained variance to the data.</p>
 
         <p>As part of the Ontario Neurodegeneration Disease Research Initiative (ONDRI) [Farhan et al., 2017] and the Canadian Biomarker Integration Network in Depression (CAN-BIND) [Lam et al., 2016] QA phantom scans were conducted approximately monthly for approximately four  years at 13 sites across Canada with 3T research MRI scanners. (See Table 1 for a list.) We found considerable variance in the QA parameters over time for many sites as well as substantial variance across sites. We also identified an unexpected range of instabilities affecting individual slices in a number of scanners. These slice anomalies may amount to a substantial contribution to the signal variance and to the best of our knowledge these slice effects have not been reported before. The main objectives of this study are as follows: (1) to identify factors contributing to the signal variance, and (2) to identify preprocessing approaches to reduce the variance and/or alleviate the slice anomalies.</p>
     </div>
 </div>
 
-<div class="text_centre">
+<div class="text_centre body-text">
     <h2>fBIRN QA parameters</h3>
     <p>The <a href="https://www.nitrc.org/projects/bxh_xcede_tools/" title="fBIRN QA pipelie on NITRC">fBIRN QA pipeline</a> was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following figure shows fourteen QA parameters are plotted for all sites:</p>
 
