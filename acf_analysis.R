@@ -18,11 +18,9 @@ acf_analysis <- function(data,
   # $data_out: outlier-removed data
   # $out_sessions: list of outlier sessions per site
   
-  # includes my functions for plotting
-  source('~/Dropbox/code/phantomQA/plotting.R')
-  
-  source('~/Dropbox/code/phantomQA/acf_analysis_physical_anomalies.R')
-  
+  script.dir <- dirname(sys.frame(1)$ofile)
+  source(paste(script.dir,'plotting.R',sep='')) # includes functions for plotting
+  source(paste(script.dir,'acf_analysis_physical_anomalies.R',sep=''))
   
   plots_all <- plotdata(data,
                         plot_title = plot_title,
