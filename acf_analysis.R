@@ -17,11 +17,7 @@ acf_analysis <- function(data,
   # output:
   # $data_out: outlier-removed data
   # $out_sessions: list of outlier sessions per site
-  
-  script.dir <- dirname(sys.frame(1)$ofile)
-  source(paste(script.dir,'plotting.R',sep='')) # includes functions for plotting
-  source(paste(script.dir,'acf_analysis_physical_anomalies.R',sep=''))
-  
+ 
   plots_all <- plotdata(data,
                         plot_title = plot_title,
                         show.pca_fbirn = show.pca_fbirn,
