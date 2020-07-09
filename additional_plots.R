@@ -4,22 +4,41 @@ library(ggplot2)
 library(reshape2)
 library(plotly)
 
-output_dir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
+reorder_sites <- function(data){
+  # reoder sites for plotting
+  
+  data$site <- factor(
+    data$site,
+    levels = c("CAM", "MCM", "SBH", "TWH", "UCA", "BYC", "WEU", "QNS", "TOH", "UTO", "SMH", "TBR", "UBC")
+  )
+  
+  # sort by site
+  data <- data[order(data$site),]
+  
+  # make sessionID an ordered factor so that ggplot does not sort it
+  data$sessionID <- factor(data$sessionID, levels = data$sessionID)
+  
+  return(data)
+}
+
+output_dir <- "/Users/Aras/projects/phantomqa/phantomQA_data/detrend_fit"
 
 # the directory containing unprocessed data
-unprocessed_dir <- "~/Dropbox/analysis/phantomQA/acf/detrend_fit"
+unprocessed_dir <- "/Users/Aras/projects/phantomqa/phantomQA_data/detrend_fit"
 
 # the directory containing spikecor processed data
-spikecor_dir <- "~/Dropbox/analysis/phantomQA/acf/spikecor_slc_detrend_fit"
+spikecor_dir <- "/Users/Aras/projects/phantomqa/phantomQA_data/spikecor_slc_detrend_fit"
 
 setwd(output_dir)
 
 data_unproc <- read.csv(paste(unprocessed_dir,'/data_clean.csv',sep = ''))
 data_spikecor <- read.csv(paste(spikecor_dir,'/data_clean.csv',sep = ''))
 
+data_unproc <- reorder_sites(data_unproc)
+data_spikecor <- reorder_sites(data_spikecor)
 
 ## ACF FWHM bar plots
-source('~/Dropbox/code/phantomQA/plotting.R')
+source('/Users/Aras/projects/phantomqa/phantomQA/plotting.R')
 p_unproc <- get_fwhm_sub_barplots(data_unproc)
 p_spikecor <- get_fwhm_sub_barplots(data_spikecor)
 

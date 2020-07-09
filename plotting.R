@@ -38,7 +38,7 @@ pca_biplot <- function(data,pca,time_course=F, var_axes=T, plot_title='', save_p
   
   if (time_course){
     p <- p + geom_path(data= data.frame(pca$x), mapping = aes(colour=data$site,shape=data$scannermanufacturer,label=data$sessionID), # shape and label just added for plotly
-                       arrow = arrow(type = 'closed',length = unit(x = 0.3,units = 'cm')), alpha=0.7)    
+                       arrow = arrow(type = 'closed',length = unit(x = 0.3,units = 'cm')), alpha=0.2)    
   }
   
   if (var_axes){
@@ -427,12 +427,12 @@ fbirn_barplot <- function(data, plot_title='', save_png=F){
   
   p_maxFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMY)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
   
   p_minFWHMY <- ggplot(data = data, mapping = aes(x = sessionID, y = minFWHMY)) +
     geom_bar(aes(fill = data$site, colour = data$site),stat = "identity") +
-    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(), axis.title.x = element_blank()) +
+    theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank()) +
     scale_y_log10(limits = c(1,max_fwhm))
 
   p_maxFWHMZ <- ggplot(data = data, mapping = aes(x = sessionID, y = maxFWHMZ)) +
