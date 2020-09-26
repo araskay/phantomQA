@@ -124,7 +124,7 @@
 
 <div class="text_centre body-text">
     <h2>fBIRN QA parameters</h3>
-    <p>The <a href="https://www.nitrc.org/projects/bxh_xcede_tools/" title="fBIRN QA pipelie on NITRC">fBIRN QA pipeline</a> was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following interactive dashboard shows the PCA of the fBIRN QA variables:</p>
+    <p>The <a href="https://www.nitrc.org/projects/bxh_xcede_tools/" title="fBIRN QA pipelie on NITRC">fBIRN QA pipeline</a> was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following interactive figure shows the PCA of the fBIRN QA variables:</p>
 
     <a id="fbirn_qa_pca">
     <div>
@@ -136,7 +136,7 @@
     <h2>Anomalies</h2>
     <p>In Figure 1 the imaging sessions within each site are connected in temporal order of acquisition. We observed prominent anomalous sessions in a number of sites (most strikingly in UCA, TWH, SMH, UBC, and TBR).</p>
 
-    <p>Figure 1 shows the original fBIRN QA variables on the PCA plane of the first two principal components. As expected, FWHM is one of the main factors driving the variance between the manufacturers [Friedman et al., 2006]. In particular, the minFWHM along with signal-to-noise measures drives the between-manufacturer difference between the GE/Philips (upper right) versus Siemens (lower left) clusters. Simultaneously, maxFWHM along with various measures of temporal noise (e.g., percentFluc), which are almost orthogonal to minFWHM, drive the outlying sessions.</p>
+    <p>Figure 1 also shows the original fBIRN QA variables on the PCA plane of the first two principal components. As expected, FWHM is one of the main factors driving the variance between the manufacturers [Friedman et al., 2006]. In particular, the minFWHM along with signal-to-noise measures drives the between-manufacturer difference between the GE/Philips (lower left) versus Siemens (upper right) clusters. Simultaneously, maxFWHM along with various measures of temporal noise (e.g., percentFluc), which are almost orthogonal to minFWHM, drive the outlying sessions.</p>
 
     <h3>Anomaly detection using autocorrelation function (ACF) analysis</h3>
     <p>Since FWHM appears to be a main factor driving the between-site variance as well as the anomalies, we looked at an independent slice-wise measure of resolution using autocorrelation function (ACF) analysis. This was motivated by two factors: (1) to provide an independent measure of FWHM, and (2) to calculate slice-wise measures of FWHM, as our primary investigation of the anomalous images hinted at possible slice effects. 
@@ -145,12 +145,12 @@
     <p>The slice ACF measurements of FWHM reveal slice instabilities within the anomalous scan sessions, which can result in unexplained variance in the data.  These instabilities can be detected using slice ACF measurements of FWHM and can, under certain circumstances, be controlled by preprocessing. When preprocessing is not effective in controlling these instabilities, the affected scan sessions can be detected using slice ACF FWHM values and excluded in subsequent analysis.
     </p>
 
-    <p>Figure 2 shows PCA analysis of the fBIRN QA after detecting and excluding the anomalies using the slice ACF FWHM values. Compare this figure with Figure 2, in which a number of anomalous scan sessions are present.</p>
+    <p>Figure 2 shows PCA analysis of the fBIRN QA after detecting and excluding the anomalies using the slice ACF FWHM values. Compare this figure with Figure 1, in which a number of anomalous scan sessions are present.</p>
 
     <a id="anomalies_removed_pca">
     <div>
     <iframe width="900" height="800" frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/5.embed"></iframe>
-    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 4 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
     </div>
     </a>
 
