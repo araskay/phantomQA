@@ -133,6 +133,15 @@
     </div>
     </a>
 
+    <h2>Spatial smoothing</h2>
+    <p>We tested the extent to which scanner differences in imaging resolution can be alleviated by smoothing the images to the greatest mean FWHM of all sites, as advocated by [Friedman et al., 2006].  Our data show that after spatial smoothing to 7 mm by AFNI’s 3dBlurToFWHM, scanner effects contribute to a lesser extent to the variance in minFWHM in the x and y directions, amounting to 12% and 20% reduction in ICC for minFWHMX and minFWHMY, respectively. Smoothing brings the minimum FWHM up to an approximately common value for all the scanners and reduces the variance of minFWHMX and minFWHMY by 81% and 71%, respectively. However, smoothing does not appear to remove and/or alleviate the anomalous sessions, indicating that these anomalies are potentially driven by factors other than differences in reconstruction resolution (Figure 2).</p>
+    <a id="spatially_smoothed_pca">
+    <div>
+    <iframe frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/9.embed"></iframe>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables after spatial smoothing. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    </div>
+    </a>    
+    
     <h2>Anomalies</h2>
     <p>In Figure 1 the imaging sessions within each site are connected in temporal order of acquisition. We observed prominent anomalous sessions in a number of sites (most strikingly in UCA, TWH, SMH, UBC, and TBR).</p>
 
@@ -145,12 +154,12 @@
     <p>The slice ACF measurements of FWHM reveal slice instabilities within the anomalous scan sessions, which can result in unexplained variance in the data.  These instabilities can be detected using slice ACF measurements of FWHM and can, under certain circumstances, be controlled by preprocessing. When preprocessing is not effective in controlling these instabilities, the affected scan sessions can be detected using slice ACF FWHM values and excluded in subsequent analysis.
     </p>
 
-    <p>Figure 2 shows PCA analysis of the fBIRN QA after detecting and excluding the anomalies using the slice ACF FWHM values. Compare this figure with Figure 1, in which a number of anomalous scan sessions are present.</p>
+    <p>Figure 3 shows PCA analysis of the fBIRN QA after detecting and excluding the anomalies using the slice ACF FWHM values. Compare this figure with Figure 1, in which a number of anomalous scan sessions are present.</p>
 
     <a id="anomalies_removed_pca">
     <div>
     <iframe width="900" height="800" frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/5.embed"></iframe>
-    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 3 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
     </div>
     </a>
 
